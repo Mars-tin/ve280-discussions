@@ -573,7 +573,7 @@ Everything in C++ is allowed to have at most one deﬁnition during compilation.
 
 struct Point {
 	double x, y;
-} 
+};
 ```
 
 That’s why we need a *header guard*.
@@ -585,7 +585,7 @@ That’s why we need a *header guard*.
 
 struct Point {
 	double x, y;
-} 
+};
 
 #endif
 ```
