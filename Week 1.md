@@ -371,7 +371,7 @@ for(int i = 0; i<= d; i++){
 Directories in Linux are organized as a tree. Consider the following example:
 
 ```shell
-/ 						//root
+/ 					//root
 ├── home/				//users's files
 	├── username1
 	├── username2
