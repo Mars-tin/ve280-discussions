@@ -118,9 +118,9 @@ Function definition describes how a function performs its tasks. It can appear i
 
 ```c++
 int getArea(int length, int width)	// ----> Function Header
-{									// -+
-    return length*width;			//  |--> Function Body
-}									// -+
+{                           // -+
+    return length*width;    //  |--> Function Body
+}                           // -+
 ```
 
 ## Argument Passing Mechanism
