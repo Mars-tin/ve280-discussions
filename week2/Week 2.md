@@ -175,7 +175,7 @@ The difference of above mechanisms can be interpreted from the following aspects
 Choosing argument passing methods wisely:
 
 * Pass atomic types by value (`int`, `float`, `char*`...).
-  * `char` is 1B, `int32` is 2B, `int64` is 4B, and a pointer is 8B (x64 System).
+  * `char` is 1B, `int32` is 4B, `int64` is 8B, and a pointer is 8B (x64 System).
 * Pass large compound objects by reference (`struct`, `class`...).
   * For `std` containers, passing by value costs 3 pointers, but passing by reference costs only 1;
   * What about structures/classes you created?
@@ -419,7 +419,7 @@ This is bad, because the number 32 here is of bad readability, and when you want
 This is where we need constant global variables.
 
 ```c++
-int MAX_SIZE = 32;
+const int MAX_SIZE = 32;
 
 int main(){
     char jAccount[MAX_SIZE];
@@ -469,7 +469,7 @@ int main(){
 }
 ```
 
-Normally, if a const reference is bind to a right value, the const reference is no difference to a simple const. In above example, you may consider line 4 and 5 identical. 
+Normally, if a const reference is bind to a right value, the const reference is no difference to a simple const. In above example, you may consider line 7 and 8 identical. 
 
 ### Argument Passing
 
