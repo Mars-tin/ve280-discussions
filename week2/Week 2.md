@@ -439,13 +439,6 @@ Note that const globals must be initialized, and cannot be modified after. For g
 
 ### Const Reference vs Non-const Reference
 
-There are many ways to define a constant reference, which are all identical.
-
-* `const int& iref`
-* `(const int)& iref`
-* `int& (const iref)`
-* `const int& (const iref)`
-
 There is something special about const references: 
 
 * Const reference are allowed to be bind to right values;
