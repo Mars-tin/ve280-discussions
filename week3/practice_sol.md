@@ -18,6 +18,8 @@ Here,   [48]
         [1, 2, 3, 4, 5] -->(1 + 2 = 3, 2 + 3 = 5, 3 + 4 = 7, 4 + 5 = 9)
 ```
 
+Write this function as a recursive function.
+
 You are provided with the print function.
 
 ```c++
@@ -34,14 +36,27 @@ void print_array(int A[] , int n)
     cout << endl; 
 }
 ```
-
-Write this function as a recursive function.
-
 Solution:
 
 ```c++
-void print_triangle(int A[], int n) { 
-	// TODO
+void print_triangle(int A[] , int n) { 
+	// Base case 
+	if (n < 1) 
+		return; 
+  
+	// Creating new array which contains the 
+	// Sum of consecutive elements in 
+	// the array passes as parameter. 
+	int temp[n - 1]; 
+	for (int i = 0; i < n - 1; i++){ 
+		int x = A[i] + A[i + 1]; 
+		temp[i] = x; 
+	} 
+  
+	// Make a recursive call and pass 
+	// the newly created array 
+	print_triangle(temp, n - 1); 
+    print_array(A, n);
 } 
 ```
 
@@ -64,8 +79,49 @@ Write this function as a recursive function. Hint: You may need a helper functio
 Solution:
 
 ```c++
+void generate_strings_helper(int K, char str[], int n) { 
+    // print binary string without consecutive 1's 
+    if (n == K){ 
+        // terminate binary string 
+        str[n] = '\0' ; 
+        cout << str << " "; 
+        return ; 
+    } 
+  
+    // if previous character is '1' then we put 
+    // only 0 at end of string 
+    //example str = "01" then new string be "010" 
+    if (str[n-1] == '1') { 
+        str[n] = '0'; 
+        generate_strings_helper (K, str, n+1); 
+    } 
+  
+    // if previous character is '0' than we put 
+    // both '1' and '0' at end of string 
+    // example str = "00" then new  string "001" and "000" 
+    if (str[n-1] == '0') { 
+        str[n] = '0'; 
+        generate_strings_helper(K, str, n+1); 
+        str[n] = '1'; 
+        generate_strings_helper(K, str, n+1) ; 
+    } 
+} 
+  
 void generate_strings(int K) { 
-    // TODO
+    // Base case 
+    if (K <= 0) 
+        return ; 
+  
+    // One by one stores every binary string of length K 
+    char str[K]; 
+  
+    // Generate all Binary string starts with '0' 
+    str[0] = '0' ; 
+    generate_strings_helper (K, str, 1) ; 
+  
+    // Generate all Binary string starts with '1' 
+    str[0] = '1' ; 
+    generate_strings_helper (K, str, 1); 
 } 
 ```
 
@@ -107,6 +163,8 @@ list_t list_rest(list_t list);
 // element of "list"
 ```
 
+The only standard libraries you are allowed to use in this problem are <iostream> and <cstdlib>. 
+
 1. Implement `list_proper_divisors`, which takes a positive integer as input and returns a list of its proper divisors in ascending order. You are not required to implement this function recursively.
 
    ```c++
@@ -119,8 +177,14 @@ list_t list_rest(list_t list);
    Solution:
 
    ```c++
-   list_t list_proper_divisors(int num){
-   	// TODO
+   list_t list_proper_divisors(int num) {
+       list_t list = list_make();
+       for (int i = num - 1; i > 0; i--) {
+           if (num % i == 0) {
+               list = list_make(i, list);
+           }
+       }
+       return list;
    }
    ```
 
@@ -135,8 +199,22 @@ list_t list_rest(list_t list);
    Solution:
 
    ```c++
-   bool is_pseudoperfect_helper(int num, list_t proper_divisors){
-   	// TODO
+   bool is_pseudoperfect_helper(int num, list_t proper_divisors) {
+       if (num == 0) {
+           return true;
+       }
+       if (num < 0 || list_isEmpty(proper_divisors)) {
+           return false;
+       }
+       return is_pseudoperfect_helper(num - list_first(proper_divisors), list_rest(proper_divisors)) ||
+              is_pseudoperfect_helper(num, list_rest(proper_divisors));
+   }
+   
+   // Simpler solution
+   bool is_pseudoperfect_helper(int num, list_t proper_divisors) {
+       if (list_isEmpty(proper_divisors)) return num == 0;
+       return is_pseudoperfect_helper(num, list_rest(proper_divisors)) ||
+              is_pseudoperfect_helper(num - list_first(proper_divisors), list_rest(proper_divisors));
    }
    ```
 
@@ -152,8 +230,9 @@ list_t list_rest(list_t list);
    Solution:
 
    ```c++
-   bool is_pseudoperfect(int num){
-   	// TODO
+   bool is_pseudoperfect(int num) {
+       list_t proper_divisors = list_proper_divisors(num);
+       return is_pseudoperfect_helper(num, proper_divisors);
    }
    ```
 
