@@ -1,2 +1,2 @@
 # VE280-Discussions
-Discussion notes of VE280
+Discussion notes for [VE280, SJTU](https://github.com/ve280), SU2020.
